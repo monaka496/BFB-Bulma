@@ -5,7 +5,7 @@ CSSフレームワーク「Bulma」と「Fontawesome」を利用しています�
 
 ダウンロード：https://github.com/monalog/BFB-Bulma/archive/refs/heads/main.zip
   
-デモページ：https://monacra.blogspot.com/
+デモページ：https://minecraft.monaka.dev/  
 
 ### インストール方法
 1. テンプレート適用前に必ずバックアップを取ってください
