@@ -57,7 +57,7 @@ Author : @monaka496
 URL : https://www.monaka.dev/
 UI : Bulma v0.9.3
 Icon : Font Awesome v5.15.4
-Licence : カスタマイズは自由です.販売,再配布は禁止です.
+Licence : MIT License
 ************************** */ 
 
 /* 記事本文の画像がはみ出すのを防ぐため */
