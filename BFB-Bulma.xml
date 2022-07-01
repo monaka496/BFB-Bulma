@@ -235,7 +235,7 @@ iframe{
                                         <!-- 画像の表示 -->
                                         <b:if cond='data:post.firstImageUrl'>
                                             
-                                            <img alt='イメージ' class='image is-128x128' expr:src='data:post.firstImageUrl + &quot;-s200-rw&quot;' style='width: 100%; max-height: 200px; object-fit: cover;'/>
+                                            <img alt='イメージ' class='image is-128x128' expr:src='data:post.firstImageUrl' style='width: 100%; max-height: 200px; object-fit: cover;'/>
                                             <b:else/>
                                             
                                             <p>
