@@ -1,3 +1,5 @@
+Blogger template BFB(Bulma for Blogger)
+
 ### BFB(Bulma版)とは？
 もなか（@monaka496）が自作したBloggerテンプレートです。  
 CSSフレームワーク「Bulma」と「Fontawesome」を利用しています。  
