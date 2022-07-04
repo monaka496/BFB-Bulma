@@ -16,8 +16,8 @@
 <link expr:href='data:view.url.canonical' rel='canonical'/>
 
 <!-- css -->
-<link href='https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css' rel='stylesheet preload'/>
-<link crossorigin='anonymous' href='https://use.fontawesome.com/releases/v5.15.4/css/all.css' rel='stylesheet preload'/>
+<link href='https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css' rel='stylesheet preload' as='style'/>
+<link crossorigin='anonymous' href='https://use.fontawesome.com/releases/v5.15.4/css/all.css' rel='stylesheet preload' as='style'/>
 
 <!-- favicon -->
 <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
