@@ -52,7 +52,7 @@
 
 /* **************************
 Name : Bulma for Blogger
-Version : v0.01
+Version : v0.10
 Author : @monaka496
 URL : https://www.monaka.dev/
 UI : Bulma v0.9.3
@@ -97,6 +97,23 @@ iframe{
     content: "B!";
     font-family: Verdana;
     font-weight: bold
+}
+/* フッターガジェットを横並びにする */
+.footer-area {
+  display: flex;
+  justify-content: center;
+}
+/* スマホ用 */
+@media screen and (max-width: 560px) {
+  footer {
+    padding: 10px 0;
+  }
+  .footer-area {
+    flex-direction: column;
+  }
+  .page-footer {
+    margin-right: 0;
+  }
 }
 
 ]]></b:skin>
@@ -1376,8 +1393,230 @@ iframe{
 
         </div>
 
+    <!-- フッターTOP -->
+    <div class='p-4 has-background-white-ter'>
+        <div class='container is-max-widescreen'>
+        <div class='footer-area columns m-0'>
+            <!-- フッターTOP左 -->
+            <b:section class='page-footer px-4 py-3 column' id='フッター1'>
+                <!-- サイト内検索 -->
+                <b:widget id='BlogSearch1' locked='false' title='このブログを検索' type='BlogSearch' version='1'>
+                    <b:includable id='main'>   
+                        <div class='widget-content'>
+                        <div expr:id='data:widget.instanceId + &quot;_form&quot;'>
+                            <form class='gsc-search-box' expr:action='data:blog.searchUrl'>
+                            <b:attr cond='not data:view.isPreview' name='target' value='_top'/>
+                            <table cellpadding='0' cellspacing='0' class='gsc-search-box'>
+                                <tbody>
+                                <tr>
+                                    <td class='is-half'>
+                                    <input autocomplete='off' class='input is-rounded' expr:value='data:view.isSearch ? data:view.search.query.escaped : &quot;&quot;' name='q' placeholder='このブログを検索' title='search' type='text'/>
+                                    </td>
+                                    <td class='gsc-search-button'>
+                                    <input class='button is-primary ml-3 is-rounded' expr:value='data:messages.search' title='search' type='submit'/>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            </form>
+                        </div>
+                        </div>
+                        <b:include name='quickedit'/>
+                    </b:includable>
+                </b:widget>
 
-    <!-- フッター -->
+                <!-- ブログアーカイブ -->
+                <b:widget id='BlogArchive1' locked='false' title='ブログ アーカイブ' type='BlogArchive' version='1'>
+                <b:widget-settings>
+                    <b:widget-setting name='showStyle'>MENU</b:widget-setting>
+                    <b:widget-setting name='yearPattern'>yyyy</b:widget-setting>
+                    <b:widget-setting name='showWeekEnd'>true</b:widget-setting>
+                    <b:widget-setting name='monthPattern'>MMMM yyyy</b:widget-setting>
+                    <b:widget-setting name='dayPattern'>MMM dd</b:widget-setting>
+                    <b:widget-setting name='weekPattern'>MM/dd</b:widget-setting>
+                    <b:widget-setting name='chronological'>false</b:widget-setting>
+                    <b:widget-setting name='showPosts'>false</b:widget-setting>
+                    <b:widget-setting name='frequency'>MONTHLY</b:widget-setting>
+                </b:widget-settings>
+                <b:includable id='main'>
+                    <b:if cond='data:title != &quot;&quot;'>
+                        <h2 class='title is-5 mt-5 pl-3' style='border-left: 3px solid;'><data:title/></h2>
+                    </b:if>
+                    <div class='widget-content'>
+                    <div class='mr-6' id='ArchiveList'>
+                    <div expr:id='data:widget.instanceId + &quot;_ArchiveList&quot;'>
+                        <b:include cond='data:style == &quot;HIERARCHY&quot;' data='data' name='interval'/>
+                        <b:include cond='data:style == &quot;FLAT&quot;' data='data' name='flat'/>
+                        <b:include cond='data:style == &quot;MENU&quot;' data='data' name='menu'/>
+                    </div>
+                    </div>
+                    <b:include name='quickedit'/>
+                    </div>
+                </b:includable>
+                <b:includable id='flat' var='data'>
+                    <ul class='flat'>
+                        <b:loop values='data:data' var='i'>
+                        <li class='archivedate'>
+                            <a expr:href='data:i.url'><data:i.name/></a> (<data:i.post-count/>)
+                        </li>
+                        </b:loop>
+                    </ul>
+                </b:includable>
+            <b:includable id='interval' var='intervalData'>
+      <b:loop values='data:intervalData' var='interval'>
+        <ul class='hierarchy'>
+          <li expr:class='&quot;archivedate &quot; + data:interval.expclass'>
+            <b:include cond='data:interval.toggleId' data='interval' name='toggle'/>
+            <a class='post-count-link' expr:href='data:interval.url'>
+              <data:interval.name/>
+            </a>
+            <span class='post-count' dir='ltr'>(<data:interval.post-count/>)</span>
+            <b:include cond='data:interval.data' data='interval.data' name='interval'/>
+            <b:include cond='data:interval.posts' data='interval.posts' name='posts'/>
+          </li>
+        </ul>
+      </b:loop>
+    </b:includable>
+                <b:includable id='menu' var='data'>
+        <select class='input' expr:id='data:widget.instanceId + &quot;_ArchiveMenu&quot;' onChange='location.href=value;'>
+        <option value=''>&#9660;&#12288;アーカイブを選択</option>
+        <b:loop values='data:data' var='i'>
+          <option expr:value='data:i.url'><data:i.name/> (<data:i.post-count/>)</option>
+        </b:loop>
+      </select>
+    </b:includable>
+                <b:includable id='posts' var='posts'>
+      <ul class='posts'>
+        <b:loop values='data:posts' var='post'>
+          <li><a expr:href='data:post.url'><data:post.title/></a></li>
+        </b:loop>
+      </ul>
+    </b:includable>
+                <b:includable id='toggle' var='interval'>
+      <a class='toggle' href='javascript:void(0)'>
+        <span expr:class='&quot;zippy&quot; + (data:interval.expclass == &quot;expanded&quot; ? &quot; toggle-open&quot; : &quot;&quot;)'>
+          <b:if cond='data:interval.expclass == &quot;expanded&quot;'>
+            &#9660;&#160;
+          <b:elseif cond='data:blog.languageDirection == &quot;rtl&quot;'/>
+            &#9668;&#160;
+          <b:else/>
+            &#9658;&#160;
+          </b:if>
+        </span>
+      </a>
+    </b:includable>
+              </b:widget>
+            </b:section>
+
+            <!-- フッターTOP中央 -->
+            <b:section class='page-footer px-4 py-3 column' id='フッター2'>
+                <!-- フッターTOP中央 人気の投稿 -->
+              <b:widget id='PopularPosts1' locked='false' title='人気の投稿' type='PopularPosts' version='1'>
+                <b:widget-settings>
+                  <b:widget-setting name='numItemsToShow'>5</b:widget-setting>
+                  <b:widget-setting name='showThumbnails'>true</b:widget-setting>
+                  <b:widget-setting name='showSnippets'>false</b:widget-setting>
+                  <b:widget-setting name='timeRange'>LAST_WEEK</b:widget-setting>
+                </b:widget-settings>
+                <b:includable id='main'>
+      <b:if cond='data:title != &quot;&quot;'><h2 class='title is-5 pl-3' style='border-left: 3px solid;'><data:title/></h2></b:if>
+      <div class='media'>
+        <ul>
+          <b:loop values='data:posts' var='post'>
+          <li>
+            <b:if cond='!data:showThumbnails'>
+              <b:if cond='!data:showSnippets'>
+                <!-- (1) No snippet/thumbnail -->
+                <a class='media-left' expr:href='data:post.href'><data:post.title/></a>
+              <b:else/>
+                <!-- (2) Show only snippets -->
+                <div class='item-title'><a expr:href='data:post.href'><data:post.title/></a></div>
+                <div class='item-snippet'><data:post.snippet/></div>
+              </b:if>
+            <b:else/>
+              <!-- (3) Show only thumbnails or (4) Snippets and thumbnails. -->
+              <div expr:class='data:showSnippets ? &quot;item-content&quot; : &quot;media&quot;'>
+                <b:if cond='data:post.featuredImage.isResizable or data:post.thumbnail'>
+                  <div class='media-left'>
+                    <a expr:href='data:post.href' target='_blank'>
+                      <b:with value='data:post.featuredImage.isResizable                                  ? resizeImage(data:post.featuredImage, 72, &quot;1:1&quot;)                                  : data:post.thumbnail' var='image'>
+                        <img alt='' border='0' expr:src='data:image'/>
+                      </b:with>
+                    </a>
+                  </div>
+                </b:if>
+                <div class='media-content'><a expr:href='data:post.href'><data:post.title/></a></div>
+                <b:if cond='data:showSnippets'>
+                  <div class='item-snippet'><data:post.snippet/></div>
+                </b:if>
+              </div>
+              <div style='clear: both;'/>
+            </b:if>
+          </li>
+          </b:loop>
+        </ul>
+        <b:include name='quickedit'/>
+      </div>
+    </b:includable>
+              </b:widget>
+            </b:section>
+
+            <!-- フッターTOP右 -->
+            <b:section class='page-footer px-4 py-3 mb-3 column' id='フッター3'>
+                <!-- フッターTOP右ラベル -->
+              <b:widget id='Label1' locked='false' title='ラベル' type='Label' version='1'>
+                <b:widget-settings>
+                  <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
+                  <b:widget-setting name='display'>CLOUD</b:widget-setting>
+                  <b:widget-setting name='selectedLabelsList'/>
+                  <b:widget-setting name='showType'>ALL</b:widget-setting>
+                  <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
+                </b:widget-settings>
+                <b:includable id='main'>
+      <b:if cond='data:title != &quot;&quot;'>
+        <h2 class='title is-5 pl-3' style='border-left: 3px solid;'><data:title/></h2>
+      </b:if>
+      <div expr:class='&quot;widget-content &quot; + data:display + &quot;-label-widget-content&quot;'>
+        <b:if cond='data:display == &quot;list&quot;'>
+          <ul>
+            <b:loop values='data:labels' var='label'>
+              <li class='my-3'>
+                <b:if cond='data:blog.url == data:label.url'>
+                    <span expr:dir='data:blog.languageDirection'><i class='fas fa-angle-right'/><data:label.name/></span>
+                <b:else/>
+                  <a class='subtitle is-6 has-text-weight-semibold' expr:dir='data:blog.languageDirection' expr:href='data:label.url'><i class='fas fa-angle-right mr-2'/><data:label.name/></a>
+                </b:if>
+                <b:if cond='data:showFreqNumbers'>
+                  <span dir='ltr'>(<data:label.count/>)</span>
+                </b:if>
+              </li>
+            </b:loop>
+          </ul>
+        <b:else/>
+          <b:loop values='data:labels' var='label'>
+            <span class='button m-1 is-small'>
+              <b:if cond='data:blog.url == data:label.url'>
+                <span expr:dir='data:blog.languageDirection'><data:label.name/></span>
+              <b:else/>
+                <a class='subtitle is-6 m-0 pr-2' expr:dir='data:blog.languageDirection' expr:href='data:label.url'><data:label.name/></a>
+              </b:if>
+              <b:if cond='data:showFreqNumbers'>
+                <span class='label-count' dir='ltr'>(<data:label.count/>)</span>
+              </b:if>
+            </span>
+          </b:loop>
+        </b:if>
+        <b:include name='quickedit'/>
+      </div>
+    </b:includable>
+              </b:widget>
+            </b:section>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- フッターBottom -->
     <footer class='p-4 has-background-grey-dark has-text-grey-light'>
         <div class='container'>    
             <div class='columns'>
