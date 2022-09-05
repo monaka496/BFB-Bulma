@@ -161,7 +161,7 @@ iframe{
           </div>
 
         <!-- コンテンツエリア -->
-        <div class='container is-max-widescreen' id='content'>
+        <div class='container is-max-desktop' id='content'>
 
             <!-- 記事本文-記事一覧 -->
             <div class='col-md-8 mb-3'>
