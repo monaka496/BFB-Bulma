@@ -22,6 +22,9 @@ Bulmaを利用していますので、各種コンポーネントやパーツは
 Bulma      ：https://github.com/jgthms/bulma  
 Fontawesome：https://github.com/FortAwesome/Font-Awesome
 
-### Tips（Twitter）
+### Sponsor
 サポートいただけたら嬉しいです。よろしくお願いします。  
+https://github.com/sponsors/monaka496/
+
+### Twitter
 https://twitter.com/monaka496
